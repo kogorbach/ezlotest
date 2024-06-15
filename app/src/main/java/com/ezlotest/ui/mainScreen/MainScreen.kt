@@ -7,10 +7,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ezlotest.ui.MainViewModel
 import com.ezlotest.ui.common.ProfileHeader
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
