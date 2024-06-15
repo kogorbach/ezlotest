@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ezloTest</string>
+    <string name="app_name">Test Application</string>
+    <string name="deviceItemSerialNumber">SN: $d</string>
 </resources>
