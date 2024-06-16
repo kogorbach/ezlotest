@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,19 +27,27 @@ import com.ezlotest.R
 import com.ezlotest.ui.model.UiDeviceModel
 
 @Composable
-fun PhoneNumberList(
+fun DeviceList(
     modifier: Modifier = Modifier,
     devices: List<UiDeviceModel> = emptyList()
 ) {
-    LazyColumn(modifier = modifier.background(Color.White)) {
-        devices.forEach { device ->
-            item { PhoneNumberListItem(device) }
+    LazyColumn(
+        modifier = modifier.background(Color.White)
+    ) {
+        devices.forEachIndexed { index, device ->
+            item {
+                DeviceListItem(index, device)
+                Divider(
+                    thickness = 2.dp,
+                    color = Color.Gray
+                )
+            }
         }
     }
 }
 
 @Composable
-fun PhoneNumberListItem(device: UiDeviceModel) {
+fun DeviceListItem(index: Int, device: UiDeviceModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,8 +63,15 @@ fun PhoneNumberListItem(device: UiDeviceModel) {
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = device.title, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(text = stringResource(id = R.string.deviceItemSerialNumber, device.serialNumber), fontSize = 12.sp)
+            Text(
+                text = device.title ?: stringResource(id = R.string.deviceMockTitle, index + 1),
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            Text(
+                text = stringResource(id = R.string.deviceItemSerialNumber, device.serialNumber),
+                fontSize = 12.sp
+            )
         }
         Icon(
             painter = painterResource(R.drawable.baseline_keyboard_arrow_right_24),
@@ -67,14 +83,26 @@ fun PhoneNumberListItem(device: UiDeviceModel) {
 
 @Preview
 @Composable
-private fun PhoneNumberListPreview() {
-    PhoneNumberList(
+private fun DeviceListPreview() {
+    DeviceList(
         devices = listOf(
-           UiDeviceModel(
-               title = "Home number 1",
-               serialNumber = 54315343,
-               iconResource = R.drawable.baseline_keyboard_arrow_right_24
-           )
+            UiDeviceModel(
+                title = "Home number 1",
+                serialNumber = 54315343,
+                iconResource = R.drawable.vera_secure_big
+            ),
+
+            UiDeviceModel(
+                title = "Home number 1",
+                serialNumber = 54315343,
+                iconResource = R.drawable.vera_secure_big
+            ),
+
+            UiDeviceModel(
+                title = "Home number 1",
+                serialNumber = 54315343,
+                iconResource = R.drawable.vera_secure_big
+            )
         )
     )
 }

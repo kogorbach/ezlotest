@@ -2,6 +2,7 @@ package com.ezlotest.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,10 +26,10 @@ import com.ezlotest.R
 @Composable
 fun ProfileHeader(modifier: Modifier = Modifier) {
     Column(
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
             .background(Color.LightGray)
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Test Application</string>
-    <string name="deviceItemSerialNumber">SN: $d</string>
+    <string name="deviceItemSerialNumber">SN: %d</string>
+    <string name="deviceMockTitle">Home Number %d</string>
 </resources>
