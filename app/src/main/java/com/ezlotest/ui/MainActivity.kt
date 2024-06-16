@@ -43,7 +43,10 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<DetailScreen> {
                             val args = it.toRoute<DetailScreen>()
-                            DetailScreenComposable(modifier = Modifier.padding(innerPadding), deviceId = args.deviceId)
+                            DetailScreenComposable(
+                                modifier = Modifier.padding(innerPadding),
+                                deviceId = args.deviceId
+                            )
                         }
                     }
                 }

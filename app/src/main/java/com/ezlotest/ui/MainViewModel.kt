@@ -3,7 +3,6 @@ package com.ezlotest.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ezlotest.R
-import com.ezlotest.data.network.model.DeviceModel
 import com.ezlotest.domain.DeviceRepository
 import com.ezlotest.ui.model.UiDeviceModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +23,11 @@ class MainViewModel @Inject constructor(
     private val _devices = MutableStateFlow<List<UiDeviceModel>>(emptyList())
     val devices: StateFlow<List<UiDeviceModel>> get() = _devices
 
-    fun getDeviceById(id: Long) = _devices.value.find { it.serialNumber == id }
+    fun getIndexedDeviceById(id: Long): Pair<UiDeviceModel?, Int> {
+        _devices.value.find { it.serialNumber == id }.also { device ->
+            return Pair(device, _devices.value.indexOf(device))
+        }
+    }
 
     private fun fetchDevices() {
         viewModelScope.launch {
@@ -33,7 +36,10 @@ class MainViewModel @Inject constructor(
                     UiDeviceModel(
                         title = device.title,
                         serialNumber = device.pkDevice,
-                        iconResource = getPlatformDrawable(device.platform)
+                        firmware = device.firmware,
+                        macAddress = device.macAddress,
+                        iconResource = getPlatformDrawable(device.platform),
+                        model = getModelName(device.platform)
                     )
                 }
             }
@@ -46,6 +52,14 @@ class MainViewModel @Inject constructor(
             "Sercomm G450" -> R.drawable.vera_plus_big
             "Sercomm G550" -> R.drawable.vera_secure_big
             else -> R.drawable.vera_edge_big
+        }
+    }
+
+    private fun getModelName(platform: String): String {
+        return when(platform) {
+            "Sercomm G450" -> "Vera Plus"
+            "Sercomm G550" -> "Vera Secure"
+            else -> "Vera Edge"
         }
     }
 }

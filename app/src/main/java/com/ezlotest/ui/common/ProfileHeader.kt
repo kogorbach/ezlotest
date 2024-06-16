@@ -36,7 +36,7 @@ fun ProfileHeader(modifier: Modifier = Modifier) {
             painter = painterResource(R.drawable.baseline_person_24),
             contentDescription = stringResource(id = R.string.mainScreenProfileImageDescription),
             modifier = Modifier
-                .size(100.dp)
+                .size(200.dp)
                 .clip(CircleShape)
                 .background(Color.Gray),
             contentScale = ContentScale.Crop

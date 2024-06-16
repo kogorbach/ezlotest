@@ -87,21 +87,30 @@ private fun DeviceListPreview() {
     DeviceList(
         devices = listOf(
             UiDeviceModel(
-                title = "Home number 1",
-                serialNumber = 54315343,
-                iconResource = R.drawable.vera_secure_big
+                serialNumber = 45013855,
+                macAddress = "e0:60:66:02:e2:1b",
+                title = "Home Number 1",
+                model = "Vera Edge",
+                iconResource = R.drawable.vera_edge_big,
+                firmware = "1.7.455",
             ),
 
             UiDeviceModel(
-                title = "Home number 1",
-                serialNumber = 54315343,
-                iconResource = R.drawable.vera_secure_big
+                serialNumber = 45013855,
+                macAddress = "e0:60:66:02:e2:1b",
+                title = "Home Number 1",
+                model = "Vera Edge",
+                iconResource = R.drawable.vera_edge_big,
+                firmware = "1.7.455",
             ),
 
             UiDeviceModel(
-                title = "Home number 1",
-                serialNumber = 54315343,
-                iconResource = R.drawable.vera_secure_big
+                serialNumber = 45013855,
+                macAddress = "e0:60:66:02:e2:1b",
+                title = "Home Number 1",
+                model = "Vera Edge",
+                iconResource = R.drawable.vera_edge_big,
+                firmware = "1.7.455",
             )
         )
     )
