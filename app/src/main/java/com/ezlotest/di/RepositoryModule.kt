@@ -1,6 +1,7 @@
 package com.ezlotest.di
 
 import com.ezlotest.data.DeviceRepositoryImpl
+import com.ezlotest.data.local.DeviceDao
 import com.ezlotest.data.network.NetworkDataSource
 import com.ezlotest.domain.DeviceRepository
 import dagger.Module
@@ -13,16 +14,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
-    // todo add local source with Room [by kostyan]
     @Provides
     @Singleton
     fun provideDeviceRepository(
         networkDataSource: NetworkDataSource,
-//        localDataSource: LocalDataSource
+        deviceDao: DeviceDao
     ): DeviceRepository {
         return DeviceRepositoryImpl(
             networkDataSource,
-//            localDataSource
+            deviceDao
         )
     }
 }
