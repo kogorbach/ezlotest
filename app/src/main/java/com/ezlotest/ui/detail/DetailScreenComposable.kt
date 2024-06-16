@@ -46,6 +46,7 @@ import com.ezlotest.R
 import com.ezlotest.ui.MainViewModel
 import com.ezlotest.ui.common.ProfileHeader
 import com.ezlotest.ui.model.UiDeviceModel
+import com.ezlotest.utils.Constants
 
 @Composable
 fun DetailScreenComposable(
@@ -63,10 +64,7 @@ fun DetailScreenComposable(
             DeviceDetails(
                 device = it,
                 editMode = editMode,
-                initialTitle = indexedDevice.first?.title ?: stringResource(
-                    id = R.string.deviceMockTitle,
-                    indexedDevice.second + 1
-                ),
+                initialTitle = it.title,
                 onApplyChanges = { newTitle ->
                     viewModel.updateDeviceTitle(deviceId, newTitle)
                     navController.popBackStack()
@@ -214,7 +212,7 @@ fun DeviceDetailsPreview() {
     )
     DeviceDetails(
         device = sampleDevice,
-        initialTitle = stringResource(id = R.string.deviceMockTitle, 1),
+        initialTitle = "${Constants.DEVICE_MOCK_TITLE} 1",
         editMode = false
     )
 }

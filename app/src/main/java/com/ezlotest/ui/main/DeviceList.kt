@@ -134,7 +134,7 @@ fun DeviceListItem(
         Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = device.title ?: stringResource(id = R.string.deviceMockTitle, index + 1),
+                text = device.title,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )

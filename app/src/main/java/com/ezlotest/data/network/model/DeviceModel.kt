@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "devices")
 data class DeviceModel(
-    val title: String? = null,
+    val title: String = "",
     @PrimaryKey @SerializedName("PK_Device") val pkDevice: Long,
     @SerializedName("MacAddress") val macAddress: String,
     @SerializedName("PK_DeviceType") val pkDeviceType: Int,

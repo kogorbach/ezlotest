@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UiDeviceModel(
-    val title: String?,
+    val title: String,
     val serialNumber: Long,
     val firmware: String,
     val macAddress: String,
