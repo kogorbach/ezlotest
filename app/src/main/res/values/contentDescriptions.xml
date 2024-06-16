@@ -2,9 +2,9 @@
 <resources>
     <string name="mainScreenProfileImageDescription">main screen profile image</string>
     <string name="mainScreenProfileNameDescription">main screen profile name</string>
-    <string name="mainScreenItemIcon">main screen item icon</string>
-    <string name="mainScreenItemHomeNumber">main screen home number</string>
-    <string name="mainScreenItemSerialNumber">main screen item serial number</string>
+    <string name="mainScreenItemIconDescription">main screen item icon</string>
+    <string name="mainScreenItemHomeNumberDescription">main screen home number</string>
+    <string name="mainScreenItemSerialNumberDescription">main screen item serial number</string>
     <string name="detailScreenProfileImageDescription">detail screen profile image</string>
     <string name="detailScreenProfileNameDescription">detail screen profile name</string>
     <string name="detailScreenItemImageDescription">detail screen item icon</string>

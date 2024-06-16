@@ -1,6 +1,7 @@
 package com.ezlotest.ui.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,14 +30,15 @@ import com.ezlotest.ui.model.UiDeviceModel
 @Composable
 fun DeviceList(
     modifier: Modifier = Modifier,
-    devices: List<UiDeviceModel> = emptyList()
+    devices: List<UiDeviceModel> = emptyList(),
+    onDeviceClick: (Long) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.background(Color.White)
     ) {
         devices.forEachIndexed { index, device ->
             item {
-                DeviceListItem(index, device)
+                DeviceListItem(index, device, onDeviceClick)
                 Divider(
                     thickness = 2.dp,
                     color = Color.Gray
@@ -47,10 +49,13 @@ fun DeviceList(
 }
 
 @Composable
-fun DeviceListItem(index: Int, device: UiDeviceModel) {
+fun DeviceListItem(index: Int, device: UiDeviceModel, onDeviceClick: (Long) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                onDeviceClick(device.serialNumber)
+            }
             .padding(horizontal = 8.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -85,6 +90,7 @@ fun DeviceListItem(index: Int, device: UiDeviceModel) {
 @Composable
 private fun DeviceListPreview() {
     DeviceList(
+        onDeviceClick = {},
         devices = listOf(
             UiDeviceModel(
                 serialNumber = 45013855,

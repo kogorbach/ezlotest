@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -33,17 +34,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             EzloTestTheme {
                 val navController = rememberNavController()
+                val viewModel: MainViewModel by viewModels()
                 Scaffold(
                     topBar = { MainTopBar() },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     NavHost(navController = navController, startDestination = MainScreen) {
                         composable<MainScreen> {
-                            MainScreenComposable(modifier = Modifier.padding(innerPadding))
+                            MainScreenComposable(
+                                viewModel = viewModel,
+                                modifier = Modifier.padding(innerPadding),
+                                onDeviceClick = { serialNumber ->
+                                    navController.navigate(DetailScreen(deviceId = serialNumber))
+                                })
                         }
                         composable<DetailScreen> {
                             val args = it.toRoute<DetailScreen>()
                             DetailScreenComposable(
+                                viewModel = viewModel,
                                 modifier = Modifier.padding(innerPadding),
                                 deviceId = args.deviceId
                             )

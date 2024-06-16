@@ -2,12 +2,12 @@ package com.ezlotest.ui.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,62 +36,73 @@ fun DetailScreenComposable(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val indexedDevice = viewModel.getIndexedDeviceById(deviceId)
-    Column(modifier = modifier) {
+    Column(modifier = modifier.fillMaxSize()) {
         ProfileHeader()
         indexedDevice.first?.let {
-            DeviceDetails(device = it, index = indexedDevice.second)
-        } // todo else draw mockup [by kostyan]
+            DeviceDetails(
+                device = it,
+                index = indexedDevice.second
+            )
+        } ?: run {
+            Text(text = stringResource(R.string.deviceNotFound))
+        }
     }
 }
 
 @Composable
-fun DeviceDetails(device: UiDeviceModel, index: Int) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .background(Color.White),
-        verticalAlignment = Alignment.CenterVertically
+fun DeviceDetails(
+    modifier: Modifier = Modifier,
+    device: UiDeviceModel,
+    index: Int
+) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = 16.dp)
+            .background(Color.White)
     ) {
-        Image(
-            painter = painterResource(id = device.iconResource),
-            contentDescription = "Device Image",
+        Row(
             modifier = Modifier
-                .size(64.dp)
-                .padding(8.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.LightGray)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Column(
-            modifier = Modifier.padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            Image(
+                painter = painterResource(id = device.iconResource),
+                contentDescription = stringResource(id = R.string.detailScreenItemImageDescription),
+                modifier = Modifier
+                    .size(120.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = device.title ?: stringResource(
-                    id = R.string.mainScreenItemHomeNumber,
+                    id = R.string.deviceMockTitle,
                     index + 1
                 ),
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
-            )
-            Text(
-                text = "SN: ${device.macAddress}",
-                fontSize = 14.sp
-            )
-            Text(
-                text = "MAC Address: ${device.macAddress}",
-                fontSize = 14.sp
-            )
-            Text(
-                text = "Firmware: ${device.firmware}",
-                fontSize = 14.sp
-            )
-            Text(
-                text = "Model: ${device.model}",
-                fontSize = 14.sp
+                fontSize = 24.sp
             )
         }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = "SN: ${device.macAddress}",
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = "MAC Address: ${device.macAddress}",
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Firmware: ${device.firmware}",
+            fontSize = 18.sp
+        )
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(
+            text = "Model: ${device.model}",
+            fontSize = 18.sp
+        )
     }
 }
 
@@ -103,6 +113,7 @@ private fun DetailsComposablePreview() {
         deviceId = 35112
     )
 }
+
 @Preview(showBackground = true)
 @Composable
 fun DeviceDetailsPreview() {
@@ -114,5 +125,5 @@ fun DeviceDetailsPreview() {
         iconResource = R.drawable.vera_edge_big,
         firmware = "1.7.455",
     )
-    DeviceDetails(device = sampleDevice, 1)
+    DeviceDetails(device = sampleDevice, index = 1)
 }
