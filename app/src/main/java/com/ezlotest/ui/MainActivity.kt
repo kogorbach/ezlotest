@@ -36,7 +36,13 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val viewModel: MainViewModel by viewModels()
                 Scaffold(
-                    topBar = { MainTopBar() },
+                    topBar = {
+                        MainTopBar(
+                            onResetClick = {
+                                viewModel.resetDeviceList()
+                            }
+                        )
+                    },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                     NavHost(navController = navController, startDestination = MainScreen) {

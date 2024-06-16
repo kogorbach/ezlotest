@@ -8,6 +8,9 @@
     <string name="mainScreenEditIconDescription">main screen edit device</string>
     <string name="mainScreenDeviceArrowIcon">main screen device item arrow icon</string>
 
+    <string name="appBarResetButtonDescription">app bar reset button</string>
+
+
     <string name="detailScreenProfileImageDescription">detail screen profile image</string>
     <string name="detailScreenProfileNameDescription">detail screen profile name</string>
     <string name="detailScreenItemImageDescription">detail screen item icon</string>

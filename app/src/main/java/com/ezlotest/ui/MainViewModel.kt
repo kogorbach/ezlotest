@@ -3,6 +3,7 @@ package com.ezlotest.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ezlotest.R
+import com.ezlotest.data.network.model.DeviceModel
 import com.ezlotest.domain.DeviceRepository
 import com.ezlotest.ui.model.UiDeviceModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,19 +48,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun resetDeviceList() {
+        viewModelScope.launch {
+            deviceRepository.updateDevices().also {
+                _devices.value = it.mapUI()
+            }
+        }
+    }
+
     private fun fetchDevices() {
         viewModelScope.launch {
             deviceRepository.fetchDevices().also { devices ->
-                _devices.value = devices.map { device ->
-                    UiDeviceModel(
-                        title = device.title,
-                        serialNumber = device.pkDevice,
-                        firmware = device.firmware,
-                        macAddress = device.macAddress,
-                        iconResource = getPlatformDrawable(device.platform),
-                        model = getModelName(device.platform)
-                    )
-                }
+                _devices.value = devices.mapUI()
             }
         }
     }
@@ -78,6 +78,19 @@ class MainViewModel @Inject constructor(
             "Sercomm G450" -> "Vera Plus"
             "Sercomm G550" -> "Vera Secure"
             else -> "Vera Edge"
+        }
+    }
+
+    private fun List<DeviceModel>.mapUI(): List<UiDeviceModel> {
+        return map { device ->
+            UiDeviceModel(
+                title = device.title,
+                serialNumber = device.pkDevice,
+                firmware = device.firmware,
+                macAddress = device.macAddress,
+                iconResource = getPlatformDrawable(device.platform),
+                model = getModelName(device.platform)
+            )
         }
     }
 }
