@@ -45,7 +45,7 @@ fun ProfileHeader(modifier: Modifier = Modifier) {
             text = "John Wayne",
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
-            modifier = Modifier.padding(top = 8.dp)
+            modifier = Modifier.padding(vertical = 8.dp)
         )
     }
 }
