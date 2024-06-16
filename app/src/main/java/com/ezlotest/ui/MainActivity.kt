@@ -62,7 +62,8 @@ class MainActivity : ComponentActivity() {
                                 viewModel = viewModel,
                                 modifier = Modifier.padding(innerPadding),
                                 deviceId = args.deviceId,
-                                editMode = args.editMode
+                                editMode = args.editMode,
+                                navController = navController
                             )
                         }
                     }

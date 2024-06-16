@@ -32,12 +32,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.ezlotest.R
 import com.ezlotest.ui.MainViewModel
 import com.ezlotest.ui.common.ProfileHeader
@@ -48,7 +52,8 @@ fun DetailScreenComposable(
     modifier: Modifier = Modifier,
     deviceId: Long,
     editMode: Boolean = false,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val indexedDevice = viewModel.getIndexedDeviceById(deviceId)
 
@@ -64,6 +69,7 @@ fun DetailScreenComposable(
                 ),
                 onApplyChanges = { newTitle ->
                     viewModel.updateDeviceTitle(deviceId, newTitle)
+                    navController.popBackStack()
                 }
             )
         } ?: run {
@@ -80,8 +86,14 @@ fun DeviceDetails(
     initialTitle: String,
     onApplyChanges: (String) -> Unit = {}
 ) {
-    val titleState = remember { mutableStateOf(initialTitle) }
-
+    val titleState = remember {
+        mutableStateOf(
+            TextFieldValue(
+                text = initialTitle,
+                selection = TextRange(initialTitle.length)
+            )
+        )
+    }
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -131,7 +143,7 @@ fun DeviceDetails(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 onClick = {
-                    onApplyChanges(titleState.value)
+                    onApplyChanges(titleState.value.text)
                 }
             ) {
                 Text(
@@ -146,7 +158,7 @@ fun DeviceDetails(
 @Composable
 private fun DeviceTitle(
     editMode: Boolean,
-    titleState: MutableState<String>
+    titleState: MutableState<TextFieldValue>
 ) {
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
@@ -154,11 +166,17 @@ private fun DeviceTitle(
     if (editMode) {
         LaunchedEffect(Unit) {
             focusRequester.requestFocus()
+            titleState.value = titleState.value.copy(
+                selection = TextRange(titleState.value.text.length)
+            )
         }
         TextField(
             value = titleState.value,
             onValueChange = {
-                titleState.value = it
+                titleState.value = it.copy(
+                    text = it.text,
+                    selection = TextRange(it.text.length)
+                )
             },
             modifier = Modifier.focusRequester(focusRequester),
             keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
@@ -168,7 +186,7 @@ private fun DeviceTitle(
         )
     } else {
         Text(
-            text = titleState.value,
+            text = titleState.value.text,
             fontSize = 24.sp
         )
     }
@@ -178,7 +196,8 @@ private fun DeviceTitle(
 @Composable
 private fun DetailsComposablePreview() {
     DetailScreenComposable(
-        deviceId = 35112
+        deviceId = 35112,
+        navController = rememberNavController()
     )
 }
 
