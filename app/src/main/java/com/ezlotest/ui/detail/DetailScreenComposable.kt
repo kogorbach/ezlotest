@@ -85,7 +85,7 @@ fun DeviceDetails(
         }
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "SN: ${device.macAddress}",
+            text = "SN: ${device.serialNumber}",
             fontSize = 18.sp
         )
         Spacer(modifier = Modifier.height(2.dp))
