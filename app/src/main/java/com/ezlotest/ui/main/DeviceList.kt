@@ -1,4 +1,4 @@
-package com.ezlotest.ui.mainScreen
+package com.ezlotest.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

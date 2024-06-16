@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
-//    id("com.google.dagger.hilt.android")
     id("dagger.hilt.android.plugin")
 }
 
@@ -91,4 +91,8 @@ dependencies {
     //Flow
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+
+    //Navigation
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }

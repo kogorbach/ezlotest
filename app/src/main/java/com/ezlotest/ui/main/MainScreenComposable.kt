@@ -1,4 +1,4 @@
-package com.ezlotest.ui.mainScreen
+package com.ezlotest.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,23 +14,23 @@ import com.ezlotest.ui.MainViewModel
 import com.ezlotest.ui.common.ProfileHeader
 
 @Composable
-fun MainScreen(
+    fun MainScreenComposable(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel()
-) {
-    val devicesState by viewModel.devices.collectAsState()
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.White)
     ) {
-        ProfileHeader(modifier = Modifier.weight(2f))
-        DeviceList(modifier = Modifier.weight(3f), devices = devicesState)
+        val devicesState by viewModel.devices.collectAsState()
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.White)
+        ) {
+            ProfileHeader(modifier = Modifier.weight(2f))
+            DeviceList(modifier = Modifier.weight(3f), devices = devicesState)
+        }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainScreen()
-}
+    @Preview(showBackground = true)
+    @Composable
+    fun MainScreenPreview() {
+        MainScreenComposable()
+    }

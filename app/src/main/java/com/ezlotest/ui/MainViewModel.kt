@@ -24,6 +24,8 @@ class MainViewModel @Inject constructor(
     private val _devices = MutableStateFlow<List<UiDeviceModel>>(emptyList())
     val devices: StateFlow<List<UiDeviceModel>> get() = _devices
 
+    fun getDeviceById(id: Long) = _devices.value.find { it.serialNumber == id }
+
     private fun fetchDevices() {
         viewModelScope.launch {
             deviceRepository.fetchDevices().also { devices ->
