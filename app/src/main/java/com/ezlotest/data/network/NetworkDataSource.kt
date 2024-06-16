@@ -7,6 +7,6 @@ class NetworkDataSource @Inject constructor(
     private val apiService: ApiService
 ) {
     suspend fun fetchDevices(): List<DeviceModel> {
-        return apiService.getData()
+        return apiService.getData().devices
     }
 }
