@@ -29,10 +29,28 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateDeviceTitle(deviceId: Long, newTitle: String) {
+        viewModelScope.launch {
+            try {
+                deviceRepository.updateDeviceTitle(deviceId, newTitle)
+                val updatedDevices = _devices.value.map {
+                    if (it.serialNumber == deviceId) {
+                        it.copy(title = newTitle)
+                    } else {
+                        it
+                    }
+                }
+                _devices.value = updatedDevices
+            } catch (e: Exception) {
+                // Handle error
+            }
+        }
+    }
+
     private fun fetchDevices() {
         viewModelScope.launch {
             deviceRepository.fetchDevices().also { devices ->
-                _devices.value = devices.map {device ->
+                _devices.value = devices.map { device ->
                     UiDeviceModel(
                         title = device.title,
                         serialNumber = device.pkDevice,
@@ -56,7 +74,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun getModelName(platform: String): String {
-        return when(platform) {
+        return when (platform) {
             "Sercomm G450" -> "Vera Plus"
             "Sercomm G550" -> "Vera Secure"
             else -> "Vera Edge"

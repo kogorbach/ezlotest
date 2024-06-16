@@ -17,7 +17,8 @@ import com.ezlotest.ui.common.ProfileHeader
     fun MainScreenComposable(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    onDeviceClick: (Long) -> Unit
+    onDeviceClick: (Long) -> Unit = {},
+    onEditClick: (Long) -> Unit = {}
     ) {
         val devicesState by viewModel.devices.collectAsState()
         Column(
@@ -26,12 +27,12 @@ import com.ezlotest.ui.common.ProfileHeader
                 .background(Color.White)
         ) {
             ProfileHeader(modifier = Modifier.weight(2f))
-            DeviceList(modifier = Modifier.weight(3f), devices = devicesState, onDeviceClick = onDeviceClick)
+            DeviceList(modifier = Modifier.weight(3f), devices = devicesState, onDeviceClick = onDeviceClick, onEditClick = onEditClick)
         }
     }
 
     @Preview(showBackground = true)
     @Composable
     fun MainScreenPreview() {
-        MainScreenComposable(onDeviceClick = {})
+        MainScreenComposable()
     }

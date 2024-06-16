@@ -46,6 +46,14 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding),
                                 onDeviceClick = { serialNumber ->
                                     navController.navigate(DetailScreen(deviceId = serialNumber))
+                                },
+                                onEditClick = { serialNumber ->
+                                    navController.navigate(
+                                        DetailScreen(
+                                            deviceId = serialNumber,
+                                            editMode = true
+                                        )
+                                    )
                                 })
                         }
                         composable<DetailScreen> {
@@ -53,7 +61,8 @@ class MainActivity : ComponentActivity() {
                             DetailScreenComposable(
                                 viewModel = viewModel,
                                 modifier = Modifier.padding(innerPadding),
-                                deviceId = args.deviceId
+                                deviceId = args.deviceId,
+                                editMode = args.editMode
                             )
                         }
                     }

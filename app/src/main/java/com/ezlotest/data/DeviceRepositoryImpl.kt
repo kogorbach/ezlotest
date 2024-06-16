@@ -26,5 +26,13 @@ class DeviceRepositoryImpl @Inject constructor(
             return devices
         }
     }
+
+    override suspend fun updateDeviceTitle(deviceId: Long, newTitle: String) {
+        val device = deviceDao.getDeviceById(deviceId)
+        device?.let {
+            val updatedDevice = it.copy(title = newTitle)
+            deviceDao.updateDevice(updatedDevice)
+        }
+    }
 }
 

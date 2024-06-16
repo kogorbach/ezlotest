@@ -3,4 +3,6 @@
     <string name="deviceItemSerialNumber">SN: %d</string>
     <string name="deviceMockTitle">Home Number %d</string>
     <string name="deviceNotFound">Device not found</string>
+    <string name="deviceTitleLabel">Device title</string>
+    <string name="editApplyChangesButton">Apply changes</string>
 </resources>

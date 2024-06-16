@@ -32,14 +32,20 @@ import com.ezlotest.ui.model.UiDeviceModel
 fun DeviceList(
     modifier: Modifier = Modifier,
     devices: List<UiDeviceModel> = emptyList(),
-    onDeviceClick: (Long) -> Unit
+    onDeviceClick: (Long) -> Unit = {},
+    onEditClick: (Long) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier.background(Color.White)
     ) {
         devices.forEachIndexed { index, device ->
             item {
-                DeviceListItem(index, device, onDeviceClick)
+                DeviceListItem(
+                    index = index,
+                    device = device,
+                    onDeviceClick = onDeviceClick,
+                    onEditClick = onEditClick
+                )
                 Divider(
                     thickness = 2.dp,
                     color = Color.Gray
@@ -50,7 +56,12 @@ fun DeviceList(
 }
 
 @Composable
-fun DeviceListItem(index: Int, device: UiDeviceModel, onDeviceClick: (Long) -> Unit) {
+fun DeviceListItem(
+    index: Int,
+    device: UiDeviceModel,
+    onDeviceClick: (Long) -> Unit,
+    onEditClick: (Long) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,6 +91,14 @@ fun DeviceListItem(index: Int, device: UiDeviceModel, onDeviceClick: (Long) -> U
             )
         }
         Icon(
+            painter = painterResource(id = R.drawable.baseline_edit_24),
+            contentDescription = stringResource(R.string.mainScreenEditIconDescription),
+            tint = Color.Gray,
+            modifier = Modifier.clickable {
+                onEditClick(device.serialNumber)
+            }
+        )
+        Icon(
             painter = painterResource(R.drawable.baseline_keyboard_arrow_right_24),
             contentDescription = "Arrow Icon",
             tint = Color.Gray
@@ -91,7 +110,6 @@ fun DeviceListItem(index: Int, device: UiDeviceModel, onDeviceClick: (Long) -> U
 @Composable
 private fun DeviceListPreview() {
     DeviceList(
-        onDeviceClick = {},
         devices = listOf(
             UiDeviceModel(
                 serialNumber = 45013855,

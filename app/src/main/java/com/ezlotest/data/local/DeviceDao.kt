@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.ezlotest.data.network.model.DeviceModel
 
 @Dao
@@ -19,4 +20,10 @@ interface DeviceDao {
 
     @Query("DELETE FROM devices")
     suspend fun clearAll()
+
+    @Query("SELECT * FROM devices WHERE pkDevice = :deviceId")
+    suspend fun getDeviceById(deviceId: Long): DeviceModel?
+
+    @Update
+    suspend fun updateDevice(device: DeviceModel)
 }
