@@ -56,6 +56,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun removeDeviceById(deviceId: Long) {
+        viewModelScope.launch {
+            deviceRepository.removeDeviceById(deviceId)
+            _devices.value = _devices.value.filter { it.serialNumber != deviceId }
+        }
+    }
+
     private fun fetchDevices() {
         viewModelScope.launch {
             deviceRepository.fetchDevices().also { devices ->

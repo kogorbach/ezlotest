@@ -34,5 +34,10 @@ class DeviceRepositoryImpl @Inject constructor(
             deviceDao.updateDevice(updatedDevice)
         }
     }
+
+    override suspend fun removeDeviceById(deviceId: Long): List<DeviceModel> {
+        deviceDao.deleteDeviceById(deviceId)
+        return deviceDao.getDevices()
+    }
 }
 

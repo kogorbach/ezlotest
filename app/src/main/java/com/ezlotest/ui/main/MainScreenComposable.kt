@@ -14,25 +14,32 @@ import com.ezlotest.ui.MainViewModel
 import com.ezlotest.ui.common.ProfileHeader
 
 @Composable
-    fun MainScreenComposable(
+fun MainScreenComposable(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
     onDeviceClick: (Long) -> Unit = {},
-    onEditClick: (Long) -> Unit = {}
+    onEditClick: (Long) -> Unit = {},
+    onRemoveDevice: (Long) -> Unit = {}
+) {
+    val devicesState by viewModel.devices.collectAsState()
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
-        val devicesState by viewModel.devices.collectAsState()
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(Color.White)
-        ) {
-            ProfileHeader(modifier = Modifier.weight(2f))
-            DeviceList(modifier = Modifier.weight(3f), devices = devicesState, onDeviceClick = onDeviceClick, onEditClick = onEditClick)
-        }
+        ProfileHeader(modifier = Modifier.weight(2f))
+        DeviceList(
+            modifier = Modifier.weight(3f),
+            devices = devicesState,
+            onDeviceClick = onDeviceClick,
+            onEditClick = onEditClick,
+            onRemoveDevice = onRemoveDevice
+        )
     }
+}
 
-    @Preview(showBackground = true)
-    @Composable
-    fun MainScreenPreview() {
-        MainScreenComposable()
-    }
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    MainScreenComposable()
+}

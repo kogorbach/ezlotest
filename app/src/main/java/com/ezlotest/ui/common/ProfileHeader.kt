@@ -42,7 +42,7 @@ fun ProfileHeader(modifier: Modifier = Modifier) {
             contentScale = ContentScale.Crop
         )
         Text(
-            text = "John Wayne",
+            text = stringResource(R.string.myName),
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             modifier = Modifier.padding(vertical = 8.dp)

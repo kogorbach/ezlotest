@@ -5,4 +5,8 @@
     <string name="deviceNotFound">Device not found</string>
     <string name="deviceTitleLabel">Device title</string>
     <string name="editApplyChangesButton">Apply changes</string>
+    <string name="removeDeviceConfirm">Confirm</string>
+    <string name="removeDeviceCancel">Cancel</string>
+    <string name="removeDeviceDialogTitle">Please confirm device %d removal</string>
+    <string name="myName">Kostiantyn Horbach</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.ezlotest.data.local
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -26,4 +27,7 @@ interface DeviceDao {
 
     @Update
     suspend fun updateDevice(device: DeviceModel)
+
+    @Query("DELETE FROM devices WHERE pkDevice = :deviceId")
+    suspend fun deleteDeviceById(deviceId: Long)
 }

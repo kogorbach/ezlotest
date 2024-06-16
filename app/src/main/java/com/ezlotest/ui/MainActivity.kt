@@ -60,6 +60,9 @@ class MainActivity : ComponentActivity() {
                                             editMode = true
                                         )
                                     )
+                                },
+                                onRemoveDevice = {serialNumber ->
+                                    viewModel.removeDeviceById(serialNumber)
                                 })
                         }
                         composable<DetailScreen> {
