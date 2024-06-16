@@ -1,5 +1,6 @@
 package com.ezlotest.ui.main
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -59,7 +60,7 @@ fun DeviceListItem(index: Int, device: UiDeviceModel, onDeviceClick: (Long) -> U
             .padding(horizontal = 8.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
+        Image(
             painter = painterResource(id = device.iconResource),
             contentDescription = stringResource(id = R.string.detailScreenItemImageDescription),
             modifier = Modifier
