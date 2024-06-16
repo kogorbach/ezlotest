@@ -56,11 +56,11 @@ fun DetailScreenComposable(
     viewModel: MainViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val indexedDevice = viewModel.getIndexedDeviceById(deviceId)
+    val device = viewModel.getDeviceById(deviceId)
 
     Column(modifier = modifier.fillMaxSize()) {
         ProfileHeader()
-        indexedDevice.first?.let {
+        device?.let {
             DeviceDetails(
                 device = it,
                 editMode = editMode,

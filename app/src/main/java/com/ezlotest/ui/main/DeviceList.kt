@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -49,12 +49,11 @@ fun DeviceList(
     LazyColumn(
         modifier = modifier.background(Color.White)
     ) {
-        itemsIndexed(
+        items(
             items = devices,
-            key = { _, device -> device.serialNumber }
-        ) { index, device ->
+            key = {device -> device.serialNumber }
+        ) { device ->
             DeviceListItem(
-                index = index,
                 device = device,
                 onDeviceClick = onDeviceClick,
                 onEditClick = onEditClick,
@@ -106,7 +105,6 @@ fun DeviceList(
 
 @Composable
 fun DeviceListItem(
-    index: Int,
     device: UiDeviceModel,
     onDeviceClick: (Long) -> Unit,
     onLongClick: (Long) -> Unit,

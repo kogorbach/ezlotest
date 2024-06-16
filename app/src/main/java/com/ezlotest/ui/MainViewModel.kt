@@ -24,10 +24,8 @@ class MainViewModel @Inject constructor(
     private val _devices = MutableStateFlow<List<UiDeviceModel>>(emptyList())
     val devices: StateFlow<List<UiDeviceModel>> get() = _devices
 
-    fun getIndexedDeviceById(id: Long): Pair<UiDeviceModel?, Int> {
-        _devices.value.find { it.serialNumber == id }.also { device ->
-            return Pair(device, _devices.value.indexOf(device))
-        }
+    fun getDeviceById(id: Long): UiDeviceModel? {
+        return _devices.value.find { it.serialNumber == id }
     }
 
     fun updateDeviceTitle(deviceId: Long, newTitle: String) {
